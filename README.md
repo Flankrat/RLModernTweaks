@@ -39,6 +39,6 @@ The mod jar is in `build/libs` (the one without `-sources`).
 Copyright (c) 2026 Flankrat. All Rights Reserved; see `LICENSE`.
 
 The RLCraft development teams (including RLCraft, RLCraft Dregora and the RLCraft 1.20.1 port)
-may include unmodified release jars of this mod in their modpacks and distribute them as part
-of those packs. Anything else, including modifying or redistributing the code, needs permission
-from Flankrat.
+may use, modify and build on this mod as they see fit for their own packs, since each pack has
+its own design goals, and may distribute the original or their modified versions as part of
+those packs. Anyone else needs permission from Flankrat.
