@@ -42,7 +42,7 @@ import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Gem socketing, a stand-in until Socketed is ported from 1.12.2.
+ * Gem socketing, a stand-in until fonnymunkey's Socketed (FermiumModding) is ported from 1.12.2.
  * Port of socketed_gems_startup.js, socketed_logic_server.js and socketed_tooltips_client.js.
  * <ul>
  *     <li>Only loot gear (chests, mob drops, fishing) rolls sockets, see {@link SocketLootModifier}.

@@ -194,7 +194,7 @@ public final class RLMTConfig {
         b.pop();
 
         b.push("socketing");
-        SOCKETING_ENABLED = b.comment("Gem socketing (a stand-in until Socketed is ported from 1.12.2).",
+        SOCKETING_ENABLED = b.comment("Gem socketing (a stand-in until fonnymunkey's Socketed is ported from 1.12.2).",
                         "Loot gear can roll sockets. Gem in main hand + gear in off hand + right-click to socket it;",
                         "Socket Extraction Tool in main hand + gear in off hand + right-click to take the last gem out.",
                         "Turning this off also turns off the bonuses of gems already socketed.")
