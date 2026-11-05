@@ -1,0 +1,13 @@
+# Normalize text files to LF in the repo; checkouts use the platform's default.
+* text=auto
+
+# Scripts that must keep specific line endings
+gradlew text eol=lf
+*.sh text eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary files
+*.jar binary
+*.png binary
+*.nbt binary
