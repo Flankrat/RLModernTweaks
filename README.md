@@ -16,7 +16,7 @@ Forge 1.20.1 (47.x). Every tweak can be turned off or tuned in `config/rlmodernt
 | Hiding in hollow logs | `hidey_hollow_holes.js` | Mobs that can't see you drop aggro and can't hit you. |
 | Banned enchantments | `enchantment_removal.js` | Strips Grappling Hook's double jump from inventory items. |
 | Flat ground check for structures | RLStructure foundations | Plains camps, the windmill and the desert town only spawn where the ground is fairly flat (max 6 blocks difference across the footprint), so they don't get tall dirt or sand walls on slopes. |
-| No waterlogging for listed structures | RLStructure air fill | The Cult Island sits in a dry pit below sea level. Normally every stair, slab, fence or leaf block placed where ocean water was becomes waterlogged and floods it; listed templates are placed without keeping that water. |
+| No waterlogging for listed structures | RLStructure air fill | The Cult Island, Island City and the RLStructure ships have dry space below sea level. Normally every stair, slab, fence or leaf block placed where ocean water was becomes waterlogged and floods it; listed templates are placed without keeping that water. |
 | Torch / blaze rod sets targets on fire | `torch_damage.js` | The script never worked (it listened for an entity type that doesn't exist). |
 | Bark from stripping logs, bark burn time | `log_stripping.js`, `FuranceBurnTime_script.js` | No longer damages the axe twice. |
 

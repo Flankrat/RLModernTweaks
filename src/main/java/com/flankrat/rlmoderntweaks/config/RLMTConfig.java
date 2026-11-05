@@ -159,7 +159,10 @@ public final class RLMTConfig {
                         "becomes waterlogged and floods the inside of the structure.")
                 .define("enabled", true);
         NO_WATERLOGGING_TEMPLATES = b.comment("Template ids (the \"location\" in the template pool), not structure ids.")
-                .defineListAllowEmpty(List.of("templates"), () -> List.of("rec_migrated:p_cultisland"), o -> o instanceof String);
+                .defineListAllowEmpty(List.of("templates"), () -> List.of(
+                        "rec_migrated:p_cultisland", "rec_migrated:p_islandcity", "rec_migrated:flagship",
+                        "rec_migrated:p_largeship", "rec_migrated:p_smallship"
+                ), o -> o instanceof String);
         b.pop();
 
         SPEC = b.build();
