@@ -18,3 +18,7 @@ bin/
 # OS
 .DS_Store
 Thumbs.db
+
+# Local build logs
+build-log.txt
+*.log
