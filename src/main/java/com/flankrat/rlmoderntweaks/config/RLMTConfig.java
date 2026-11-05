@@ -53,6 +53,10 @@ public final class RLMTConfig {
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> FLAT_GROUND_STRUCTURES;
     public static final ForgeConfigSpec.IntValue FLAT_GROUND_MAX_DIFFERENCE;
 
+    // Structures that don't keep the world's water
+    public static final ForgeConfigSpec.BooleanValue NO_WATERLOGGING_ENABLED;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> NO_WATERLOGGING_TEMPLATES;
+
     static {
         ForgeConfigSpec.Builder b = new ForgeConfigSpec.Builder();
 
@@ -147,6 +151,15 @@ public final class RLMTConfig {
         FLAT_GROUND_MAX_DIFFERENCE = b.comment("Largest allowed height difference, in blocks, between the highest and lowest of",
                         "9 ground samples (corners, edge midpoints and center of the structure's footprint).")
                 .defineInRange("maxHeightDifference", 6, 0, 256);
+        b.pop();
+
+        b.push("no_waterlogging");
+        NO_WATERLOGGING_ENABLED = b.comment("Place the structure templates below without keeping the water already in the world.",
+                        "Without this, every stair, slab, fence, leaf block etc. a structure places below sea level",
+                        "becomes waterlogged and floods the inside of the structure.")
+                .define("enabled", true);
+        NO_WATERLOGGING_TEMPLATES = b.comment("Template ids (the \"location\" in the template pool), not structure ids.")
+                .defineListAllowEmpty(List.of("templates"), () -> List.of("rec_migrated:p_cultisland"), o -> o instanceof String);
         b.pop();
 
         SPEC = b.build();

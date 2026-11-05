@@ -8,6 +8,7 @@ import com.flankrat.rlmoderntweaks.feature.FlatGroundCheck;
 import com.flankrat.rlmoderntweaks.feature.GoldenItems;
 import com.flankrat.rlmoderntweaks.feature.HollowLogHiding;
 import com.flankrat.rlmoderntweaks.feature.MagicFocusGoldenWeapons;
+import com.flankrat.rlmoderntweaks.feature.NoWaterlogging;
 import com.flankrat.rlmoderntweaks.feature.PlayerGravity;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
@@ -57,5 +58,6 @@ public final class RLModernTweaks {
         FireItems.refresh();
         BarkTweaks.refresh();
         FlatGroundCheck.refresh();
+        NoWaterlogging.refresh();
     }
 }
