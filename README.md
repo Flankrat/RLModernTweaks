@@ -15,6 +15,7 @@ Forge 1.20.1 (47.x). Every tweak can be turned off or tuned in `config/rlmodernt
 | Golden Osmosis for extra golden items | `golden_sword_magic_and_spartan_osmosis.js` (tick part) | Mixin into Talents' `isGolden`, so Talents repairs them at its normal rate. The script repaired them 3x faster than vanilla gold. |
 | Hiding in hollow logs | `hidey_hollow_holes.js` | Mobs that can't see you drop aggro and can't hit you. |
 | Banned enchantments | `enchantment_removal.js` | Strips Grappling Hook's double jump from inventory items. |
+| Flat ground check for structures | RLStructure foundations | Plains camps, the windmill and the desert town only spawn where the ground is fairly flat (max 6 blocks difference across the footprint), so they don't get tall dirt or sand walls on slopes. |
 | Torch / blaze rod sets targets on fire | `torch_damage.js` | The script never worked (it listened for an entity type that doesn't exist). |
 | Bark from stripping logs, bark burn time | `log_stripping.js`, `FuranceBurnTime_script.js` | No longer damages the axe twice. |
 

@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "rlmoderntweaks.refmap.json",
   "mixins": [
+    "StructureMixin",
     "talents.RegistryCommonEventsMixin"
   ],
   "injectors": {

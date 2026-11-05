@@ -48,6 +48,11 @@ public final class RLMTConfig {
     public static final ForgeConfigSpec.BooleanValue BARK_FUEL_ENABLED;
     public static final ForgeConfigSpec.IntValue BARK_BURN_TIME;
 
+    // Flat ground check for structures
+    public static final ForgeConfigSpec.BooleanValue FLAT_GROUND_ENABLED;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> FLAT_GROUND_STRUCTURES;
+    public static final ForgeConfigSpec.IntValue FLAT_GROUND_MAX_DIFFERENCE;
+
     static {
         ForgeConfigSpec.Builder b = new ForgeConfigSpec.Builder();
 
@@ -127,6 +132,21 @@ public final class RLMTConfig {
                 .define("fuelEnabled", true);
         BARK_BURN_TIME = b.comment("Burn time in ticks (200 = one item smelted).")
                 .defineInRange("burnTime", 100, 0, 32000);
+        b.pop();
+
+        b.push("flat_ground");
+        FLAT_GROUND_ENABLED = b.comment("Only let the structures below spawn on fairly flat ground, so they don't end up with",
+                        "tall dirt or sand walls on sloped land. Rejected spots are skipped (the structure becomes",
+                        "somewhat rarer in hilly areas). /locate uses the same check.")
+                .define("enabled", true);
+        FLAT_GROUND_STRUCTURES = b.comment("Structure ids to check.")
+                .defineListAllowEmpty(List.of("structures"), () -> List.of(
+                        "rec_migrated:rlcraft_plainscamp", "rec_migrated:rlcraft_plainscampruined",
+                        "rec_migrated:rlcraft_plainswindmill", "rec_migrated:rlcraft_deserttown"
+                ), o -> o instanceof String);
+        FLAT_GROUND_MAX_DIFFERENCE = b.comment("Largest allowed height difference, in blocks, between the highest and lowest of",
+                        "9 ground samples (corners, edge midpoints and center of the structure's footprint).")
+                .defineInRange("maxHeightDifference", 6, 0, 256);
         b.pop();
 
         SPEC = b.build();

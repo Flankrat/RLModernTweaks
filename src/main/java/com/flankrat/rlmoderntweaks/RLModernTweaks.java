@@ -4,6 +4,7 @@ import com.flankrat.rlmoderntweaks.config.RLMTConfig;
 import com.flankrat.rlmoderntweaks.feature.BannedEnchantments;
 import com.flankrat.rlmoderntweaks.feature.BarkTweaks;
 import com.flankrat.rlmoderntweaks.feature.FireItems;
+import com.flankrat.rlmoderntweaks.feature.FlatGroundCheck;
 import com.flankrat.rlmoderntweaks.feature.GoldenItems;
 import com.flankrat.rlmoderntweaks.feature.HollowLogHiding;
 import com.flankrat.rlmoderntweaks.feature.MagicFocusGoldenWeapons;
@@ -55,5 +56,6 @@ public final class RLModernTweaks {
         BannedEnchantments.refresh();
         FireItems.refresh();
         BarkTweaks.refresh();
+        FlatGroundCheck.refresh();
     }
 }
