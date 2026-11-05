@@ -57,6 +57,15 @@ public final class RLMTConfig {
     public static final ForgeConfigSpec.BooleanValue NO_WATERLOGGING_ENABLED;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> NO_WATERLOGGING_TEMPLATES;
 
+    // Socketing
+    public static final ForgeConfigSpec.BooleanValue SOCKETING_ENABLED;
+    public static final ForgeConfigSpec.IntValue SOCKET_MAX;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> SOCKET_ROLLS;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> SOCKET_TIERS;
+    public static final ForgeConfigSpec.ConfigValue<String> SOCKET_GEM_TAG;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> SOCKET_GEMS;
+    public static final ForgeConfigSpec.ConfigValue<String> SOCKET_DEFAULT_BONUS;
+
     static {
         ForgeConfigSpec.Builder b = new ForgeConfigSpec.Builder();
 
@@ -163,6 +172,43 @@ public final class RLMTConfig {
                         "rec_migrated:p_cultisland", "rec_migrated:p_islandcity", "rec_migrated:flagship",
                         "rec_migrated:p_largeship", "rec_migrated:p_smallship"
                 ), o -> o instanceof String);
+        b.pop();
+
+        b.push("socketing");
+        SOCKETING_ENABLED = b.comment("Gem socketing (a stand-in until Socketed is ported from 1.12.2).",
+                        "Loot gear can roll sockets. Gem in main hand + gear in off hand + right-click to socket it;",
+                        "Socket Extraction Tool in main hand + gear in off hand + right-click to take the last gem out.",
+                        "Turning this off also turns off the bonuses of gems already socketed.")
+                .define("enabled", true);
+        SOCKET_MAX = b.comment("Most sockets a piece of gear can have.")
+                .defineInRange("maxSockets", 3, 1, 8);
+        SOCKET_ROLLS = b.comment("Weighted chances for how many sockets damageable chest, mob and fishing loot rolls.",
+                        "Format: \"sockets=weight\"")
+                .defineListAllowEmpty(List.of("socketRolls"), () -> List.of("0=50", "1=30", "2=15", "3=5"),
+                        o -> o instanceof String);
+        SOCKET_TIERS = b.comment("Per socket count: color and the name prefixes to pick from for loot that rolled that many.",
+                        "Format: \"sockets;color;Name1,Name2,...\" (color = a Minecraft color name like aqua, light_purple, gold)")
+                .defineListAllowEmpty(List.of("tiers"), () -> List.of(
+                        "1;aqua;Notched,Chipped,Gem-Set",
+                        "2;light_purple;Inlaid,Twin-Set,Gem-Bound",
+                        "3;gold;Resplendent,Crowned,Tri-Set"
+                ), o -> o instanceof String);
+        SOCKET_GEM_TAG = b.comment("Item tag of items that can be socketed.")
+                .define("gemTag", "forge:gems");
+        SOCKET_GEMS = b.comment("Gem bonuses.",
+                        "Format: \"item;attribute;amount;operation;tooltip label;extract fail chance\"",
+                        "operation = ADDITION, MULTIPLY_BASE or MULTIPLY_TOTAL. Extract fail chance 0 to 1: chance the gem breaks.")
+                .defineListAllowEmpty(List.of("gems"), () -> List.of(
+                        "minecraft:diamond;minecraft:generic.armor;1.5;ADDITION;+1.5 Armor;0.5",
+                        "minecraft:emerald;minecraft:generic.max_health;2.0;ADDITION;+1 Heart Max Health;0.5",
+                        "minecraft:amethyst_shard;minecraft:generic.attack_speed;0.1;MULTIPLY_BASE;+10% Attack Speed;0.5",
+                        "minecraft:lapis_lazuli;minecraft:generic.movement_speed;0.05;MULTIPLY_BASE;+5% Speed;0.5",
+                        "minecraft:quartz;minecraft:generic.attack_damage;2.0;ADDITION;+2 Attack Damage;0.5",
+                        "minecraft:prismarine_crystals;minecraft:generic.armor_toughness;1.0;ADDITION;+1 Armor Toughness;0.5"
+                ), o -> o instanceof String);
+        SOCKET_DEFAULT_BONUS = b.comment("Bonus for any other gem in the gem tag.",
+                        "Format: \"attribute;amount;operation;tooltip label;extract fail chance\"")
+                .define("defaultBonus", "minecraft:generic.knockback_resistance;0.1;ADDITION;+10% Knockback Resistance;0.5");
         b.pop();
 
         SPEC = b.build();

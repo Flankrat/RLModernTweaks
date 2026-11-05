@@ -10,6 +10,13 @@ import com.flankrat.rlmoderntweaks.feature.HollowLogHiding;
 import com.flankrat.rlmoderntweaks.feature.MagicFocusGoldenWeapons;
 import com.flankrat.rlmoderntweaks.feature.NoWaterlogging;
 import com.flankrat.rlmoderntweaks.feature.PlayerGravity;
+import com.flankrat.rlmoderntweaks.feature.socketing.Socketing;
+import com.flankrat.rlmoderntweaks.feature.socketing.SocketingClient;
+import com.flankrat.rlmoderntweaks.init.ModItems;
+import com.flankrat.rlmoderntweaks.network.ModNetwork;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -32,6 +39,8 @@ public final class RLModernTweaks {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         modBus.addListener(this::onConfigLoad);
         modBus.addListener(this::onConfigReload);
+        modBus.addListener(this::onCommonSetup);
+        ModItems.register(modBus);
 
         IEventBus forgeBus = MinecraftForge.EVENT_BUS;
         forgeBus.register(PlayerGravity.class);
@@ -40,6 +49,12 @@ public final class RLModernTweaks {
         forgeBus.register(BannedEnchantments.class);
         forgeBus.register(FireItems.class);
         forgeBus.register(BarkTweaks.class);
+        forgeBus.register(Socketing.class);
+        if (FMLEnvironment.dist == Dist.CLIENT) forgeBus.register(SocketingClient.class);
+    }
+
+    private void onCommonSetup(FMLCommonSetupEvent event) {
+        event.enqueueWork(ModNetwork::register);
     }
 
     private void onConfigLoad(ModConfigEvent.Loading event) {
@@ -59,5 +74,6 @@ public final class RLModernTweaks {
         BarkTweaks.refresh();
         FlatGroundCheck.refresh();
         NoWaterlogging.refresh();
+        Socketing.refresh();
     }
 }

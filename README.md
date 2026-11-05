@@ -19,6 +19,7 @@ Forge 1.20.1 (47.x). Every tweak can be turned off or tuned in `config/rlmodernt
 | No waterlogging for listed structures | RLStructure air fill | The Cult Island, Island City and the RLStructure ships have dry space below sea level. Normally every stair, slab, fence or leaf block placed where ocean water was becomes waterlogged and floods it; listed templates are placed without keeping that water. |
 | Torch / blaze rod sets targets on fire | `torch_damage.js` | The script never worked (it listened for an entity type that doesn't exist). |
 | Bark from stripping logs, bark burn time | `log_stripping.js`, `FuranceBurnTime_script.js` | No longer damages the axe twice. |
+| Gem socketing (stand-in until Socketed is ported) | `socketed_gems_startup.js`, `socketed_logic_server.js`, `socketed_tooltips_client.js` | Same behaviour and item NBT as the scripts, so already socketed gear keeps its gems. Loot rolls use a global loot modifier instead of LootJS. Adds the Socket Extraction Tool (`rlmoderntweaks:socket_extractor`, replaces `kubejs:socket_extractor`). Discovered gems carry over from the old KubeJS stages. Gems, rolls and name prefixes are in the config. |
 
 Item lists in the config accept `modid:item`, `modid:prefix*` and `#modid:tag`.
 
