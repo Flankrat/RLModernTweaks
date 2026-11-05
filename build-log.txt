@@ -1,0 +1,57 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.5/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+MixinGradle did not locate the diffplug APT plugin, skipping eclipse task configuration
+Java: 1.8.0_504, JVM: 25.504-b01 (Temurin), Arch: amd64
+
+> Task :downloadMcpConfig
+> Task :extractSrg
+> Task :createMcpToSrg
+
+> Task :compileJava
+[14:14:38] [main/INFO]: Writing debug log file accesstransform.log
+[14:14:38] [main/INFO]: Access Transformer processor running version 8.2.14
+[14:14:38] [main/INFO]: Command line arguments [--inJar, C:\Users\Maxwell\.gradle\caches\forge_gradle\minecraft_user_repo\net\minecraftforge\forge\1.20.1-47.2.0\forge-1.20.1-47.2.0-injected.jar, --outJar, C:\Users\Maxwell\.gradle\caches\forge_gradle\minecraft_user_repo\net\minecraftforge\forge\1.20.1-47.2.0_mapped_parchment_2023.09.03-1.20.1\forge-1.20.1-47.2.0_mapped_parchment_2023.09.03-1.20.1.jar, --logFile, accesstransform.log, --atFile, C:\Users\Maxwell\Documents\GitHub\RLModernTweaks\build\_atJar_4\parent_at.cfg]
+[14:14:38] [main/INFO]: Reading from C:\Users\Maxwell\.gradle\caches\forge_gradle\minecraft_user_repo\net\minecraftforge\forge\1.20.1-47.2.0\forge-1.20.1-47.2.0-injected.jar
+[14:14:38] [main/INFO]: Writing to C:\Users\Maxwell\.gradle\caches\forge_gradle\minecraft_user_repo\net\minecraftforge\forge\1.20.1-47.2.0_mapped_parchment_2023.09.03-1.20.1\forge-1.20.1-47.2.0_mapped_parchment_2023.09.03-1.20.1.jar
+[14:14:38] [main/INFO]: Transformer file C:\Users\Maxwell\Documents\GitHub\RLModernTweaks\build\_atJar_4\parent_at.cfg
+[14:14:38] [main/WARN]: Found existing output jar C:\Users\Maxwell\.gradle\caches\forge_gradle\minecraft_user_repo\net\minecraftforge\forge\1.20.1-47.2.0_mapped_parchment_2023.09.03-1.20.1\forge-1.20.1-47.2.0_mapped_parchment_2023.09.03-1.20.1.jar, overwriting
+[14:14:40] [main/INFO]: JAR transformation complete C:\Users\Maxwell\.gradle\caches\forge_gradle\minecraft_user_repo\net\minecraftforge\forge\1.20.1-47.2.0_mapped_parchment_2023.09.03-1.20.1\forge-1.20.1-47.2.0_mapped_parchment_2023.09.03-1.20.1.jar
+Creating SRG -> MCP TSRG
+Note: SpongePowered MIXIN Annotation Processor Version=0.8.5 (MixinGradle Version=0.7)
+Note: Supported obfuscation types: ObfuscationServiceMCP supports [notch] ObfuscationServiceFG3 supports [searge]
+Note: Loading searge mappings from C:\Users\Maxwell\Documents\GitHub\RLModernTweaks\build\createMcpToSrg\output.tsrg
+Note: Writing refmap to C:\Users\Maxwell\Documents\GitHub\RLModernTweaks\build\tmp\compileJava\compileJava-refmap.json
+Note: Writing refmap to C:\Users\Maxwell\Documents\GitHub\RLModernTweaks\build\tmp\compileJava\compileJava-refmap.json
+Note: Writing searge composite mappings to C:\Users\Maxwell\Documents\GitHub\RLModernTweaks\build\tmp\compileJava\compileJava-mappings.tsrg
+Note: Writing refmap to C:\Users\Maxwell\Documents\GitHub\RLModernTweaks\build\tmp\compileJava\compileJava-refmap.json
+Note: Writing refmap to C:\Users\Maxwell\Documents\GitHub\RLModernTweaks\build\tmp\compileJava\compileJava-refmap.json
+Note: Writing searge composite mappings to C:\Users\Maxwell\Documents\GitHub\RLModernTweaks\build\tmp\compileJava\compileJava-mappings.tsrg
+
+> Task :addMixinsToJar
+> Task :processResources
+> Task :classes
+> Task :jar
+> Task :configureReobfTaskForReobfJar
+> Task :reobfJar
+> Task :configureReobfTaskForReobfJarJar
+> Task :addMixinsToJarJar
+> Task :jarJar SKIPPED
+> Task :reobfJarJar SKIPPED
+> Task :assemble
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.5/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 33s
+11 actionable tasks: 11 executed
