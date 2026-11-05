@@ -1,0 +1,13 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "com.flankrat.rlmoderntweaks.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "rlmoderntweaks.refmap.json",
+  "mixins": [
+    "talents.RegistryCommonEventsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  }
+}
