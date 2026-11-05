@@ -53,6 +53,11 @@ public final class RLMTConfig {
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> FLAT_GROUND_STRUCTURES;
     public static final ForgeConfigSpec.IntValue FLAT_GROUND_MAX_DIFFERENCE;
 
+    // Structures that only spawn on open water
+    public static final ForgeConfigSpec.BooleanValue WATER_ONLY_ENABLED;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> WATER_ONLY_STRUCTURES;
+    public static final ForgeConfigSpec.IntValue WATER_ONLY_MIN_DEPTH;
+
     // Structures that don't keep the world's water
     public static final ForgeConfigSpec.BooleanValue NO_WATERLOGGING_ENABLED;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> NO_WATERLOGGING_TEMPLATES;
@@ -160,6 +165,20 @@ public final class RLMTConfig {
         FLAT_GROUND_MAX_DIFFERENCE = b.comment("Largest allowed height difference, in blocks, between the highest and lowest of",
                         "9 ground samples (corners, edge midpoints and center of the structure's footprint).")
                 .defineInRange("maxHeightDifference", 6, 0, 256);
+        b.pop();
+
+        b.push("water_only");
+        WATER_ONLY_ENABLED = b.comment("Only let the structures below spawn where their whole footprint is open water.",
+                        "Minecraft only checks the biome at a structure's start point, so big sea structures can",
+                        "otherwise end up half on a beach, a jungle or a hillside. /locate uses the same check.")
+                .define("enabled", true);
+        WATER_ONLY_STRUCTURES = b.comment("Structure ids to check.")
+                .defineListAllowEmpty(List.of("structures"), () -> List.of(
+                        "rec_migrated:p_islandcity", "rec_migrated:p_cultisland", "rec_migrated:flagship",
+                        "rec_migrated:p_largeship", "rec_migrated:p_smallship"
+                ), o -> o instanceof String);
+        WATER_ONLY_MIN_DEPTH = b.comment("Minimum water depth, in blocks, at each of 25 points across the footprint.")
+                .defineInRange("minDepth", 3, 1, 64);
         b.pop();
 
         b.push("no_waterlogging");

@@ -10,6 +10,7 @@ import com.flankrat.rlmoderntweaks.feature.HollowLogHiding;
 import com.flankrat.rlmoderntweaks.feature.MagicFocusGoldenWeapons;
 import com.flankrat.rlmoderntweaks.feature.NoWaterlogging;
 import com.flankrat.rlmoderntweaks.feature.PlayerGravity;
+import com.flankrat.rlmoderntweaks.feature.WaterOnlyCheck;
 import com.flankrat.rlmoderntweaks.feature.socketing.Socketing;
 import com.flankrat.rlmoderntweaks.feature.socketing.SocketingClient;
 import com.flankrat.rlmoderntweaks.init.ModItems;
@@ -74,6 +75,7 @@ public final class RLModernTweaks {
         BarkTweaks.refresh();
         FlatGroundCheck.refresh();
         NoWaterlogging.refresh();
+        WaterOnlyCheck.refresh();
         Socketing.refresh();
     }
 }
