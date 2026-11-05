@@ -33,3 +33,12 @@ The mod jar is in `build/libs` (the one without `-sources`).
 - Custom items: Grave Scroll, Blade of Herobrine, Wildberry Wine
 - Cataclysm compatibility: Tidal Claws armor requirement, Curios slot attributes
 - Shivaxi boss
+
+## License and permissions
+
+Copyright (c) 2026 Flankrat. All Rights Reserved; see `LICENSE`.
+
+The RLCraft development teams (including RLCraft, RLCraft Dregora and the RLCraft 1.20.1 port)
+may include unmodified release jars of this mod in their modpacks and distribute them as part
+of those packs. Anything else, including modifying or redistributing the code, needs permission
+from Flankrat.
