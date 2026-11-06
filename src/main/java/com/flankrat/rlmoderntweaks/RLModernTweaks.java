@@ -15,6 +15,7 @@ import com.flankrat.rlmoderntweaks.feature.WaterOnlyCheck;
 import com.flankrat.rlmoderntweaks.feature.socketing.Socketing;
 import com.flankrat.rlmoderntweaks.feature.socketing.SocketingClient;
 import com.flankrat.rlmoderntweaks.init.ModItems;
+import com.flankrat.rlmoderntweaks.util.FarReferenceLogFilter;
 import com.flankrat.rlmoderntweaks.network.ModNetwork;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -53,6 +54,7 @@ public final class RLModernTweaks {
         forgeBus.register(BarkTweaks.class);
         forgeBus.register(Socketing.class);
         forgeBus.register(OversizedStructures.class);
+        FarReferenceLogFilter.install();
         if (FMLEnvironment.dist == Dist.CLIENT) forgeBus.register(SocketingClient.class);
     }
 
