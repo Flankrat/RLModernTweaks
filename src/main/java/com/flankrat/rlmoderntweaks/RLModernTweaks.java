@@ -12,6 +12,16 @@ import com.flankrat.rlmoderntweaks.feature.NoWaterlogging;
 import com.flankrat.rlmoderntweaks.feature.OversizedStructures;
 import com.flankrat.rlmoderntweaks.feature.PlayerGravity;
 import com.flankrat.rlmoderntweaks.feature.WaterOnlyCheck;
+import com.flankrat.rlmoderntweaks.feature.PauseMenuCleanup;
+import com.flankrat.rlmoderntweaks.feature.PlayerBosses;
+import com.flankrat.rlmoderntweaks.feature.ShivaxiBoss;
+import com.flankrat.rlmoderntweaks.feature.WorldRules;
+import com.flankrat.rlmoderntweaks.feature.cataclysm.NoBlockBreaking;
+import com.flankrat.rlmoderntweaks.feature.cataclysm.TidalClaws;
+import com.flankrat.rlmoderntweaks.feature.cataclysm.TidalClawsClient;
+import com.flankrat.rlmoderntweaks.feature.items.BladeOfHerobrineItem;
+import com.flankrat.rlmoderntweaks.feature.items.GraveScrollItem;
+import net.minecraftforge.fml.ModList;
 import com.flankrat.rlmoderntweaks.feature.socketing.Socketing;
 import com.flankrat.rlmoderntweaks.feature.socketing.SocketingClient;
 import com.flankrat.rlmoderntweaks.init.ModItems;
@@ -54,8 +64,27 @@ public final class RLModernTweaks {
         forgeBus.register(BarkTweaks.class);
         forgeBus.register(Socketing.class);
         forgeBus.register(OversizedStructures.class);
+        forgeBus.register(GraveScrollItem.class);
+        forgeBus.register(BladeOfHerobrineItem.class);
+        forgeBus.register(ShivaxiBoss.class);
+        forgeBus.register(PlayerBosses.class);
+        forgeBus.register(TidalClaws.class);
+        forgeBus.register(NoBlockBreaking.class);
+        forgeBus.register(WorldRules.class);
+        if (ModList.get().isLoaded("curios")) {
+            // Loaded by name so the Curios classes are only touched when Curios is installed.
+            try {
+                forgeBus.register(Class.forName("com.flankrat.rlmoderntweaks.feature.cataclysm.CataclysmCurios"));
+            } catch (ClassNotFoundException e) {
+                LOGGER.error("Couldn't load the Cataclysm Curios compat", e);
+            }
+        }
         FarReferenceLogFilter.install();
-        if (FMLEnvironment.dist == Dist.CLIENT) forgeBus.register(SocketingClient.class);
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            forgeBus.register(SocketingClient.class);
+            forgeBus.register(TidalClawsClient.class);
+            forgeBus.register(PauseMenuCleanup.class);
+        }
     }
 
     private void onCommonSetup(FMLCommonSetupEvent event) {

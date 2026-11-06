@@ -76,6 +76,44 @@ public final class RLMTConfig {
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> SOCKET_GEMS;
     public static final ForgeConfigSpec.ConfigValue<String> SOCKET_DEFAULT_BONUS;
 
+    // Grave Scroll
+    public static final ForgeConfigSpec.BooleanValue GRAVE_SCROLL_ENABLED;
+
+    // Blade of Herobrine
+    public static final ForgeConfigSpec.BooleanValue HEROBRINE_ENABLED;
+    public static final ForgeConfigSpec.IntValue HEROBRINE_MAX_SOULS;
+    public static final ForgeConfigSpec.IntValue HEROBRINE_SOUL_COST;
+    public static final ForgeConfigSpec.IntValue HEROBRINE_COOLDOWN;
+    public static final ForgeConfigSpec.DoubleValue HEROBRINE_MAX_DAMAGE;
+    public static final ForgeConfigSpec.DoubleValue HEROBRINE_MIN_DAMAGE;
+
+    // Shivaxi
+    public static final ForgeConfigSpec.BooleanValue SHIVAXI_ENABLED;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> SHIVAXI_STRUCTURES;
+    public static final ForgeConfigSpec.DoubleValue SHIVAXI_HEALTH;
+    public static final ForgeConfigSpec.DoubleValue SHIVAXI_DAMAGE;
+    public static final ForgeConfigSpec.IntValue SHIVAXI_BAR_RANGE;
+    public static final ForgeConfigSpec.ConfigValue<String> SHIVAXI_PHASE_TWO;
+    public static final ForgeConfigSpec.ConfigValue<String> SHIVAXI_REWARD;
+
+    // Player bosses
+    public static final ForgeConfigSpec.BooleanValue PLAYER_BOSSES_ENABLED;
+    public static final ForgeConfigSpec.DoubleValue PLAYER_BOSSES_CHANCE;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> PLAYER_BOSSES;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> PLAYER_BOSS_REWARDS;
+
+    // Cataclysm
+    public static final ForgeConfigSpec.BooleanValue TIDAL_CLAWS_ENABLED;
+    public static final ForgeConfigSpec.ConfigValue<String> TIDAL_CLAWS_ITEM;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> TIDAL_CLAWS_ARMOR;
+    public static final ForgeConfigSpec.BooleanValue CATACLYSM_CURIOS_ENABLED;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> NO_BLOCK_BREAKING_ITEMS;
+
+    // Pause menu and world rules
+    public static final ForgeConfigSpec.BooleanValue PAUSE_MENU_CLEANUP;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> FIRST_LOAD_GAMERULES;
+    public static final ForgeConfigSpec.ConfigValue<String> FORCE_DIFFICULTY;
+
     static {
         ForgeConfigSpec.Builder b = new ForgeConfigSpec.Builder();
 
@@ -246,6 +284,110 @@ public final class RLMTConfig {
         SOCKET_DEFAULT_BONUS = b.comment("Bonus for any other gem in the gem tag.",
                         "Format: \"attribute;amount;operation;tooltip label;extract fail chance\"")
                 .define("defaultBonus", "minecraft:generic.knockback_resistance;0.1;ADDITION;+10% Knockback Resistance;0.5");
+        b.pop();
+
+        b.push("grave_scroll");
+        GRAVE_SCROLL_ENABLED = b.comment("Grave Scroll (rlmoderntweaks:grave_scroll): hold right-click with it to go back to where you last died.",
+                        "Works once per death; the scroll is used up. Replaces the Grave Scroll KubeJS scripts.")
+                .define("enabled", true);
+        b.pop();
+
+        b.push("blade_of_herobrine");
+        HEROBRINE_ENABLED = b.comment("Blade of Herobrine (rlmoderntweaks:blade_of_herobrine): mobs killed while holding it give a soul;",
+                        "right-click spends souls on a shockwave that travels forward, burns and knocks back what it hits.",
+                        "Replaces the Blade of Herobrine KubeJS scripts.")
+                .define("enabled", true);
+        HEROBRINE_MAX_SOULS = b.comment("Most souls the blade's wielder can hold.")
+                .defineInRange("maxSouls", 10, 1, 1000);
+        HEROBRINE_SOUL_COST = b.comment("Souls one shockwave costs.")
+                .defineInRange("soulCost", 1, 0, 1000);
+        HEROBRINE_COOLDOWN = b.comment("Cooldown after a shockwave, in ticks.")
+                .defineInRange("cooldownTicks", 60, 0, 12000);
+        HEROBRINE_MAX_DAMAGE = b.comment("Shockwave damage close to the player (first step).")
+                .defineInRange("maxDamage", 20.0, 0.0, 10000.0);
+        HEROBRINE_MIN_DAMAGE = b.comment("Shockwave damage at its furthest step.")
+                .defineInRange("minDamage", 8.0, 0.0, 10000.0);
+        b.pop();
+
+        b.push("shivaxi");
+        SHIVAXI_ENABLED = b.comment("Turn the giant in the Shivaxi monument into the Shivaxi boss: boss bar, gear and AI;",
+                        "when it dies, the second phase spawns and it drops the reward. Replaces ShivaxiBoss.js and ShivaxiBodyMasterKeyDrop.js.",
+                        "Only giants inside the structures below count, so other giants (like the one in Ice City) stay normal giants.")
+                .define("enabled", true);
+        SHIVAXI_STRUCTURES = b.comment("Structures whose giant is Shivaxi.")
+                .defineListAllowEmpty(List.of("structures"), () -> List.of("rec_migrated:shivaxi"), o -> o instanceof String);
+        SHIVAXI_HEALTH = b.comment("Shivaxi's max health.")
+                .defineInRange("health", 150.0, 1.0, 100000.0);
+        SHIVAXI_DAMAGE = b.comment("Shivaxi's base attack damage.")
+                .defineInRange("attackDamage", 15.0, 0.0, 10000.0);
+        SHIVAXI_BAR_RANGE = b.comment("Players this close (in blocks) see the boss bar.")
+                .defineInRange("bossBarRange", 50, 1, 512);
+        SHIVAXI_PHASE_TWO = b.comment("Entity spawned when Shivaxi dies (empty for none).")
+                .define("phaseTwoEntity", "iceandfire:shivaxi_dragon");
+        SHIVAXI_REWARD = b.comment("Item Shivaxi always drops, as \"item\" or \"count item\" (empty for none).")
+                .define("reward", "locks:master_key");
+        b.pop();
+
+        b.push("player_bosses");
+        PLAYER_BOSSES_ENABLED = b.comment("Newly spawned zombies can rarely become a named player boss. Replaces playerbosses.js.")
+                .define("enabled", true);
+        PLAYER_BOSSES_CHANCE = b.comment("Chance for a newly spawned zombie to become a boss (0.001 = 0.1%).")
+                .defineInRange("chance", 0.001, 0.0, 1.0);
+        PLAYER_BOSSES = b.comment("Bosses. Format: \"name;health;attack damage;main hand item;chest item;player head skin\"",
+                        "Weapon, chestplate and head each have a 10% chance to drop.")
+                .defineListAllowEmpty(List.of("bosses"), () -> List.of(
+                        "Stranding;100;15;rlmoderntweaks:blade_of_herobrine;minecraft:netherite_chestplate;Stranding",
+                        "Just Kettle;100;6;minecraft:netherite_sword;minecraft:golden_chestplate;Tetera5000",
+                        "Max-Z;130;8;minecraft:bow;minecraft:netherite_chestplate;muxi11514",
+                        "Fonny;100;12;minecraft:iron_axe;minecraft:leather_chestplate;FonnyMunkey",
+                        "keletu;233;10;iceandfire:silver_sword;minecraft:iron_chestplate;keletu",
+                        "Keki;150;6;iceandfire:dread_queen_staff;minecraft:golden_chestplate;kekpriestesskeki"
+                ), o -> o instanceof String);
+        PLAYER_BOSS_REWARDS = b.comment("Items every player boss drops, as \"count item\".")
+                .defineListAllowEmpty(List.of("rewards"), () -> List.of("16 minecraft:emerald", "2 minecraft:enchanted_golden_apple"),
+                        o -> o instanceof String);
+        b.pop();
+
+        b.push("cataclysm");
+        TIDAL_CLAWS_ENABLED = b.comment("Tidal Claws only work while wearing the armor below (no grapple, no melee).",
+                        "Replaces cataclysm_tidal_claws_neptunium_requirement.js and the tooltip in tooltip_Events.js.")
+                .define("tidalClawsNeedArmor", true);
+        TIDAL_CLAWS_ITEM = b.comment("The claws item.")
+                .define("tidalClawsItem", "cataclysm:tidal_claws");
+        TIDAL_CLAWS_ARMOR = b.comment("Armor that has to be worn: head, chest, legs, feet.")
+                .defineListAllowEmpty(List.of("tidalClawsArmor"), () -> List.of(
+                        "aquaculture:neptunium_helmet", "aquaculture:neptunium_chestplate",
+                        "aquaculture:neptunium_leggings", "aquaculture:neptunium_boots"
+                ), o -> o instanceof String);
+        CATACLYSM_CURIOS_ENABLED = b.comment("Give Cataclysm's ring, belts and Unbreakable Skull their bonuses in the pack's shared Curios slots",
+                        "(ring, belt, charm) instead of Cataclysm's own slots. Replaces cataclysm_curios_ring_attribute_compat.js.")
+                .define("curiosSlotBonuses", true);
+        NO_BLOCK_BREAKING_ITEMS = b.comment("Held items that can't break blocks (the disabled Cataclysm weapons).",
+                        "Replaces the block-breaking part of cataclysm_gear_restrictions.js.")
+                .defineListAllowEmpty(List.of("noBlockBreaking"), () -> List.of(
+                        "cataclysm:infernal_forge", "cataclysm:brontes", "cataclysm:final_fractal", "cataclysm:zweiender",
+                        "cataclysm:gauntlet_of_guard", "cataclysm:bulwark_of_the_flame", "cataclysm:cursed_bow",
+                        "cataclysm:the_annihilator", "cataclysm:soul_render", "cataclysm:wither_assault_shoulder_weapon",
+                        "cataclysm:void_assault_shoulder_weapon", "cataclysm:gauntlet_of_bulwark", "cataclysm:void_forge",
+                        "cataclysm:coral_spear", "cataclysm:coral_bardiche", "cataclysm:khopesh", "cataclysm:azure_sea_shield",
+                        "cataclysm:meat_shredder", "cataclysm:laser_gatling", "cataclysm:ancient_spear", "cataclysm:astrape",
+                        "cataclysm:ceraunus", "cataclysm:gauntlet_of_maelstrom", "cataclysm:wrath_of_the_desert",
+                        "cataclysm:the_immolator"
+                ), o -> o instanceof String);
+        b.pop();
+
+        b.push("world_rules");
+        PAUSE_MENU_CLEANUP = b.comment("Hide the Advancements and Give Feedback buttons on the pause menu and close the gaps.",
+                        "Replaces hide_advancement_button.js.")
+                .define("pauseMenuCleanup", true);
+        FIRST_LOAD_GAMERULES = b.comment("Gamerules set once, the first time a world is loaded with this mod. Format: \"rule=value\".",
+                        "Replaces Global_Rules.js. (naturalRegeneration is turned off by First Aid's config.)")
+                .defineListAllowEmpty(List.of("firstLoadGamerules"), () -> List.of(
+                        "reducedDebugInfo=true", "playersSleepingPercentage=33", "spectatorsGenerateChunks=false"
+                ), o -> o instanceof String);
+        FORCE_DIFFICULTY = b.comment("Difficulty set every time a world is loaded: peaceful, easy, normal or hard (empty to leave it alone).",
+                        "Replaces set_difficulty.js.")
+                .define("difficulty", "hard");
         b.pop();
 
         SPEC = b.build();

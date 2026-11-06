@@ -60,9 +60,21 @@ repositories {
     mavenCentral()
 }
 
+// Compile-only stand-ins for optional mods' APIs (Curios). They are not put in the jar;
+// the real classes come from the mods at runtime, and the code using them only loads when the mod is installed.
+sourceSets {
+    stubs {
+        java.srcDir 'src/stubs/java'
+    }
+}
+configurations {
+    stubsCompileClasspath.extendsFrom(minecraft)
+}
+
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    compileOnly sourceSets.stubs.output
 }
 
 mixin {

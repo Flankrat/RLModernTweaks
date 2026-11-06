@@ -1,6 +1,8 @@
 package com.flankrat.rlmoderntweaks.init;
 
 import com.flankrat.rlmoderntweaks.RLModernTweaks;
+import com.flankrat.rlmoderntweaks.feature.items.BladeOfHerobrineItem;
+import com.flankrat.rlmoderntweaks.feature.items.GraveScrollItem;
 import com.flankrat.rlmoderntweaks.feature.socketing.SocketLootModifier;
 import com.mojang.serialization.Codec;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -23,6 +25,17 @@ public final class ModItems {
     public static final RegistryObject<Item> SOCKET_EXTRACTOR =
             ITEMS.register("socket_extractor", () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> GRAVE_SCROLL =
+            ITEMS.register("grave_scroll", () -> new GraveScrollItem(new Item.Properties().stacksTo(16)));
+
+    public static final RegistryObject<Item> BLADE_OF_HEROBRINE =
+            ITEMS.register("blade_of_herobrine", () -> new BladeOfHerobrineItem(new Item.Properties().stacksTo(1)));
+
+    /** Items that used to be registered by KubeJS; old worlds' kubejs: items turn into these. */
+    private static final java.util.Map<String, RegistryObject<Item>> FROM_KUBEJS = java.util.Map.of(
+            "grave_scroll", GRAVE_SCROLL,
+            "blade_of_herobrine", BLADE_OF_HEROBRINE);
+
     public static final RegistryObject<Codec<SocketLootModifier>> SOCKET_ROLLS =
             LOOT_MODIFIERS.register("socket_rolls", SocketLootModifier.CODEC);
 
@@ -33,9 +46,25 @@ public final class ModItems {
         ITEMS.register(modBus);
         LOOT_MODIFIERS.register(modBus);
         modBus.addListener(ModItems::addToCreativeTabs);
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.addListener(ModItems::remapKubeJsItems);
+    }
+
+    /** kubejs:grave_scroll and kubejs:blade_of_herobrine in existing worlds become the mod's items. */
+    private static void remapKubeJsItems(net.minecraftforge.registries.MissingMappingsEvent event) {
+        for (net.minecraftforge.registries.MissingMappingsEvent.Mapping<Item> mapping : event.getMappings(ForgeRegistries.Keys.ITEMS, "kubejs")) {
+            RegistryObject<Item> replacement = FROM_KUBEJS.get(mapping.getKey().getPath());
+            if (replacement != null) {
+                mapping.remap(replacement.get());
+                RLModernTweaks.LOGGER.info("Converted {} to {}", mapping.getKey(), replacement.getId());
+            }
+        }
     }
 
     private static void addToCreativeTabs(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) event.accept(SOCKET_EXTRACTOR);
+        if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+            event.accept(SOCKET_EXTRACTOR);
+            event.accept(GRAVE_SCROLL);
+        }
+        if (event.getTabKey() == CreativeModeTabs.COMBAT) event.accept(BLADE_OF_HEROBRINE);
     }
 }

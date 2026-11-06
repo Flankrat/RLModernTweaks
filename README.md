@@ -23,6 +23,20 @@ Forge 1.20.1 (47.x). Every tweak can be turned off or tuned in `config/rlmodernt
 | Bark from stripping logs, bark burn time | `log_stripping.js`, `FuranceBurnTime_script.js` | No longer damages the axe twice. |
 | Gem socketing (stand-in until fonnymunkey's Socketed is ported from 1.12.2) | `socketed_gems_startup.js`, `socketed_logic_server.js`, `socketed_tooltips_client.js` | Same behaviour and item NBT as the scripts, so already socketed gear keeps its gems. Loot rolls use a global loot modifier instead of LootJS. Adds the Socket Extraction Tool (`rlmoderntweaks:socket_extractor`, replaces `kubejs:socket_extractor`). Discovered gems carry over from the old KubeJS stages. Gems, rolls and name prefixes are in the config. |
 
+## Phase 2
+
+| Tweak | Replaces | Notes |
+|---|---|---|
+| Grave Scroll (`rlmoderntweaks:grave_scroll`) | `Gravescroll_function.js`, `Grave_Scroll_event.js`, `Gravescroll_client_sync.js`, the scroll in `Registries.js` | Hold right-click for 3 seconds to go back to where you last died, in any dimension. Used up on use. The death point survives respawning. `kubejs:grave_scroll` items in existing worlds turn into the new item. |
+| Blade of Herobrine (`rlmoderntweaks:blade_of_herobrine`) | the three `blade_of_herobrine.js` scripts | Unbreakable gold-tier sword. Kills give souls (up to 10); right-click spends one to send out a wave of soul fire that hurts and burns everything in front of you. `kubejs:blade_of_herobrine` items turn into the new item. |
+| Shivaxi boss | `ShivaxiBoss.js`, `ShivaxiBodyMasterKeyDrop.js` | Only the giant in the Shivaxi structure (`rec_migrated:shivaxi`) becomes Shivaxi; the giant in Ice City stays a normal giant. Gear, AI, a red boss bar, then the Shivaxi Dragon as a second phase, and a guaranteed Master Key. |
+| Player bosses | `playerbosses.js` | 0.1% of newly spawned zombies become one of the RLCraft player bosses. Only fresh spawns are rolled, not zombies loaded with a chunk. Bosses and rewards are in the config. |
+| Tidal Claws need full Neptunium armor | `cataclysm_tidal_claws_neptunium_requirement.js`, the tooltip in `tooltip_Events.js` | No grapple and no melee without the armor; chests and doors still open. |
+| Cataclysm curios in the shared Curios slots | `cataclysm_curios_ring_attribute_compat.js` | Ring of Grudged, the belts and the Unbreakable Skull get their bonuses in the ring, belt and charm slots. Only active with Curios installed. |
+| Disabled Cataclysm weapons can't break blocks | the block-break part of `cataclysm_gear_restrictions.js` | The list is in the config. |
+| Pause menu cleanup | `hide_advancement_button.js` | Hides Advancements and Give Feedback and closes the gaps. |
+| First-load gamerules, difficulty | `Global_Rules.js`, `set_difficulty.js` | Gamerules are set once per world; the difficulty (hard) every time the world loads. |
+
 Item lists in the config accept `modid:item`, `modid:prefix*` and `#modid:tag`.
 
 ## Building
@@ -33,11 +47,8 @@ gradlew build
 
 The mod jar is in `build/libs` (the one without `-sources`).
 
-## Later phases
-
-- Custom items: Grave Scroll, Blade of Herobrine, Wildberry Wine
-- Cataclysm compatibility: Tidal Claws armor requirement, Curios slot attributes
-- Shivaxi boss
+`src/stubs` holds compile-only copies of the few Curios API classes the mod uses, so Curios isn't
+needed to build. They aren't put in the jar; at runtime the real classes come from Curios.
 
 ## License and permissions
 
