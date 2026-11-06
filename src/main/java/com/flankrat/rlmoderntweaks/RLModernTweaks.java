@@ -9,6 +9,7 @@ import com.flankrat.rlmoderntweaks.feature.GoldenItems;
 import com.flankrat.rlmoderntweaks.feature.HollowLogHiding;
 import com.flankrat.rlmoderntweaks.feature.MagicFocusGoldenWeapons;
 import com.flankrat.rlmoderntweaks.feature.NoWaterlogging;
+import com.flankrat.rlmoderntweaks.feature.OversizedStructures;
 import com.flankrat.rlmoderntweaks.feature.PlayerGravity;
 import com.flankrat.rlmoderntweaks.feature.WaterOnlyCheck;
 import com.flankrat.rlmoderntweaks.feature.socketing.Socketing;
@@ -51,6 +52,7 @@ public final class RLModernTweaks {
         forgeBus.register(FireItems.class);
         forgeBus.register(BarkTweaks.class);
         forgeBus.register(Socketing.class);
+        forgeBus.register(OversizedStructures.class);
         if (FMLEnvironment.dist == Dist.CLIENT) forgeBus.register(SocketingClient.class);
     }
 
@@ -76,6 +78,7 @@ public final class RLModernTweaks {
         FlatGroundCheck.refresh();
         NoWaterlogging.refresh();
         WaterOnlyCheck.refresh();
+        OversizedStructures.refresh();
         Socketing.refresh();
     }
 }

@@ -53,6 +53,11 @@ public final class RLMTConfig {
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> FLAT_GROUND_STRUCTURES;
     public static final ForgeConfigSpec.IntValue FLAT_GROUND_MAX_DIFFERENCE;
 
+    // Structures built further than 8 chunks from their start
+    public static final ForgeConfigSpec.BooleanValue OVERSIZED_ENABLED;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> OVERSIZED_STRUCTURES;
+    public static final ForgeConfigSpec.IntValue OVERSIZED_RADIUS;
+
     // Structures that only spawn on open water
     public static final ForgeConfigSpec.BooleanValue WATER_ONLY_ENABLED;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> WATER_ONLY_STRUCTURES;
@@ -165,6 +170,19 @@ public final class RLMTConfig {
         FLAT_GROUND_MAX_DIFFERENCE = b.comment("Largest allowed height difference, in blocks, between the highest and lowest of",
                         "9 ground samples (corners, edge midpoints and center of the structure's footprint).")
                 .defineInRange("maxHeightDifference", 6, 0, 256);
+        b.pop();
+
+        b.push("oversized_structures");
+        OVERSIZED_ENABLED = b.comment("Let the structures below be built further than 8 chunks from the chunk they start in.",
+                        "Vanilla cuts off anything further, which cut the outer ships and coastline off Island City.",
+                        "Each structure must be the only one in its structure set and use random_spread placement.")
+                .define("enabled", true);
+        OVERSIZED_STRUCTURES = b.comment("Structure ids.")
+                .defineListAllowEmpty(List.of("structures"), () -> List.of("rec_migrated:p_islandcity"),
+                        o -> o instanceof String);
+        OVERSIZED_RADIUS = b.comment("How far from its start chunk a listed structure can be built, in chunks (vanilla is 8).",
+                        "Larger values cost a little more world generation time for every chunk.")
+                .defineInRange("radiusChunks", 12, 9, 32);
         b.pop();
 
         b.push("water_only");
