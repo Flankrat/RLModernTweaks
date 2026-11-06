@@ -6,6 +6,7 @@
   "refmap": "rlmoderntweaks.refmap.json",
   "mixins": [
     "ChunkGeneratorMixin",
+    "ChunkSerializerMixin",
     "SinglePoolElementMixin",
     "StructureManagerMixin",
     "StructureMixin",

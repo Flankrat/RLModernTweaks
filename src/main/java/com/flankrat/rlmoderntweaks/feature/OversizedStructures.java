@@ -101,6 +101,15 @@ public final class OversizedStructures {
         return RLMTConfig.OVERSIZED_ENABLED.get() && !ids.isEmpty();
     }
 
+    /** The configured radius in chunks, or 0 when the feature is off. */
+    public static int activeRadius() {
+        return active() ? RLMTConfig.OVERSIZED_RADIUS.get() : 0;
+    }
+
+    public static boolean isListed(ResourceLocation id) {
+        return ids.contains(id);
+    }
+
     public static boolean applies(Structure structure, RegistryAccess registryAccess) {
         if (!active()) return false;
         ResourceLocation id = registryAccess.registryOrThrow(Registries.STRUCTURE).getKey(structure);
