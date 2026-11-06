@@ -28,12 +28,14 @@ import java.util.Map;
 public abstract class ChunkSerializerMixin {
 
     @Inject(method = "unpackStructureReferences", at = @At("RETURN"), require = 1)
-    private static void rlmoderntweaks$keepFarReferences(RegistryAccess registryAccess, ChunkPos chunkPos, CompoundTag tag,
+    private static void rlmoderntweaks$keepFarReferences(RegistryAccess registryAccess, ChunkPos chunkPos, CompoundTag structuresTag,
                                                          CallbackInfoReturnable<Map<Structure, LongSet>> cir) {
         int radius = OversizedStructures.activeRadius();
         if (radius <= 8) return;
         Map<Structure, LongSet> references = cir.getReturnValue();
         Registry<Structure> registry = registryAccess.registryOrThrow(Registries.STRUCTURE);
+        // The method gets the chunk's whole "structures" tag; the references are inside "References".
+        CompoundTag tag = structuresTag.getCompound("References");
 
         for (String key : tag.getAllKeys()) {
             ResourceLocation id = ResourceLocation.tryParse(key);
